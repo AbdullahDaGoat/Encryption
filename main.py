@@ -10,8 +10,9 @@
 
 # BIG NOTE: IF YOU CHANGE THE ENCRYPTION KEY, THEN YOU MUST REUPLOAD ALL THE IMAGE DATASET BECAUSE OTHERWISE THE SYSTEM WILL BLOCK YOU FROM ACCESSING THE DATA
 
-
 # inline commenting has been done so you can understand the code, please read it, and look at all the resources
+
+# Todo: If one key is removed inform the user that (hopsital [name]) key is removed and deny access
 
 
 #        /\_/\
@@ -26,18 +27,17 @@
 # I imported the following functions using “pip install cryptography time shutil re os”: (Just for safe practies you dont need to import os, re, and time but its better if you do anyway)
 
 
-
 import os
 # This is pythons standard function allows me to use most of python standard functions. This makes up almost 65% of the code
 # Learn more of Python Os import here → https://docs.python.org/3/library/os.html
 
 import re
-# Re is short for regex which helps me look for patterns in the url identified pngs so that even if the test.png case sensitively isnt there it will use regex to find a similar test.png 
+# Re is short for regex which helps me look for patterns in the url identified pngs so that even if the test.png case sensitively isnt there it will use regex to find a similar test.png
 # like a test.png.encrypted and run the code anyway
 # You can learn more of Python Regex here → https://www.w3schools.com/python/python_regex.asp
 
 from cryptography.fernet import Fernet
-# Fernet is a high level dynamically used enterprise level cryptography library that can encode, and cryptography certain datasets. 
+# Fernet is a high level dynamically used enterprise level cryptography library that can encode, and cryptography certain datasets.
 # In this instance we used it to encrypt the images and add the .encrypt extension accordingly, aswell as to decrypt and do most of the logic and handeling in this code
 # Learn more of Fernet here → https://cryptography.io/en/latest/fernet/
 
@@ -47,8 +47,8 @@ import time
 # Learn more of python time standard module here → https://docs.python.org/3/library/time.html
 
 import shutil
-# Shutil as it sounds is a Shuttle program library that communicates with the directory system to move files around in python, this helps us move the decrypted image 
-# to a temporary secure location where they can be accessed once in there they will be self destructed automatically, almost like a Shuttle system that instead of transporting passengers 
+# Shutil as it sounds is a Shuttle program library that communicates with the directory system to move files around in python, this helps us move the decrypted image
+# to a temporary secure location where they can be accessed once in there they will be self destructed automatically, almost like a Shuttle system that instead of transporting passengers
 # transports files
 # Learn more of Shutil here → https://docs.python.org/3/library/shutil.html
 
@@ -88,6 +88,8 @@ hospital_keys = {
 }
 
 # Define a function to encrypt an image file
+
+
 def encrypt_image(image_path, hospital_prefix):
     # Get the encryption key based on the hospital prefix
     key = hospital_keys.get(hospital_prefix)
@@ -204,7 +206,7 @@ image_path = f"./MRI_Parent/MRI_Dataset/{user_defined_folder}/{user_defined_imag
 
 # Get the hospital prefix from the directory name
 hospital_input_prefix = input("Enter the hospital name here (A or B): ")
-hospital_prefix = hospital_input_prefix 
+hospital_prefix = hospital_input_prefix
 
 # Get the hospital key for the encrypted image
 hospital_key = hospital_keys.get(hospital_prefix)
